@@ -1,11 +1,16 @@
 import React from "react";
 import "./App.css";
-import BitcoinRates from "./components/BitcoinRates";
+import EmojiProvider from "./context/EmojiContext";
+import Navbar from "./components/Navbar";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
     return (
         <>
-            <BitcoinRates />
+            <EmojiProvider>
+                <Navbar />
+                <AppRoutes />
+            </EmojiProvider>
         </>
     );
 }
