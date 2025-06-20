@@ -1,7 +1,22 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-})
+    base: "/",
+    plugins: [react()],
+    server: {
+        proxy: {
+            "/api": {
+                target: "https://api.coingecko.com",
+                changeOrigin: true,
+                rewrite: (path) => {
+                    console.log("Rewrite called with path:", path);
+                    const newPath = path.replace(/^\/en\/api/, "");
+                    console.log("Rewritten path:", newPath);
+                    return newPath;
+                },
+            },
+        },
+        logLevel: "debug",
+    },
+});
